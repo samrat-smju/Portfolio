@@ -1,54 +1,79 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samrat's Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="profile.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="bg-white fixed w-full z-20 top-0 border-b shadow-lg p-4">
-        <div class="max-w-screen-xl flex justify-between items-center mx-auto">
-            <span class="text-3xl font-semibold tracking-wide text-gray-900 hover:text-blue-500">SAMRAT</span>
-            <div class="space-x-6 text-xl">
-                <a href="#about" class="hover:text-blue-500">About</a>
-                <a href="#services" class="hover:text-blue-500">Services</a>
-                <a href="#contact" class="hover:text-blue-500">Contact</a>
+
+    <!-- Navbar Start -->
+    <nav class="navbar bg-white fixed w-full z-20 top-0 border-b shadow-xl">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+            <a href="#" class="text-3xl font-semibold tracking-wider logo">SAMRAT</a>
+            <div class="flex space-x-4 text-xl">
+                <a href="https://www.linkedin.com/in/-samrat" target="_blank"><i class="fa-brands fa-linkedin hover:text-blue-600 hover:scale-125"></i></a>
+                <a href="https://github.com/samrat-smju" target="_blank"><i class="fa-brands fa-github hover:text-gray-800 hover:scale-125"></i></a>
             </div>
         </div>
     </nav>
+    <!-- Navbar End -->
 
-    <!-- Hero Section -->
-    <section class="h-screen bg-blue-100 flex flex-col justify-center items-center text-center px-6">
-        <h1 class="text-5xl font-bold text-gray-800">I am <span id="animated-text" class="text-blue-500"></span></h1>
-        <p class="text-lg text-gray-700 mt-4">Based in Dhaka, Bangladesh.</p>
-        <img src="profile.jpg" alt="Samrat" class="mt-6 w-48 h-48 rounded-full shadow-lg">
-    </section>
+    <!-- Home Section -->
+    <div class="home h-screen bg-cover bg-center flex items-center justify-center">
+        <div class="text-center text-white">
+            <h2 class="text-5xl font-light animate-text">I am Samrat</h2>
+            <h1 class="text-6xl font-bold role-animation"></h1>
+            <p class="text-xl mt-4">Based in Dhaka, Bangladesh.</p>
+        </div>
+    </div>
 
     <!-- About Section -->
-    <section id="about" class="py-16 px-6 bg-white text-center">
-        <h2 class="text-4xl font-semibold text-gray-900">About Me</h2>
-        <p class="max-w-3xl mx-auto mt-4 text-lg text-gray-700">
-            I specialize in UX design and front-end development, with experience in Figma, Webflow, Canva, HTML, CSS, Tailwind CSS, and JavaScript.
-        </p>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="services" class="py-16 px-6 bg-gray-100 text-center">
-        <h2 class="text-4xl font-semibold text-gray-900">My Skills</h2>
-        <div class="max-w-3xl mx-auto mt-6">
-            <p class="text-lg text-gray-700">HTML, CSS, JavaScript, Tailwind, Figma, Canva, Webflow</p>
+    <section id="about" class="about-section">
+        <h1 class="section-title">About Me</h1>
+        <p class="intro">I specialize in UX design, front-end development, and graphic design.</p>
+        
+        <div class="profile-container">
+            <img src="profile.jpg" alt="Samrat" class="profile">
+        </div>
+        
+        <div class="details">
+            <p><strong>Name:</strong> Sish Mohammad Jalal Uddin Samrat</p>
+            <p><strong>Email:</strong> smju.samrat@gmail.com</p>
+            <p><strong>Location:</strong> Dhaka, Bangladesh</p>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 px-6 bg-white text-center">
-        <h2 class="text-4xl font-semibold text-gray-900">Contact Me</h2>
-        <p class="mt-4 text-lg text-gray-700">Email: smju.samrat@gmail.com</p>
+    <!-- Education Section -->
+    <section id="education" class="education-section">
+        <h1 class="section-title">Education</h1>
+        <div class="edu-card">
+            <h2>Computer Science & Engineering</h2>
+            <p>American International University Bangladesh</p>
+            <p>3rd Semester</p>
+        </div>
     </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <h1 class="section-title">Skills</h1>
+        <div class="skills-container">
+            <span class="skill">UX Design</span>
+            <span class="skill">Front-End Development</span>
+            <span class="skill">Canva Design</span>
+            <span class="skill">Logo Design</span>
+            <span class="skill">Figma</span>
+            <span class="skill">Webflow</span>
+            <span class="skill">HTML & CSS</span>
+            <span class="skill">JavaScript</span>
+        </div>
+    </section>
+
 </body>
 </html>
