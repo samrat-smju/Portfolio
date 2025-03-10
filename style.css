@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #f4f4f4;
+    background-color: #add8e6; /* Light blue background color */
     text-align: center;
 }
 
@@ -38,14 +38,7 @@ body {
     height: 50px;
     overflow: hidden;
     white-space: nowrap;
-    animation: roleSwitch 6s infinite;
-}
-
-@keyframes roleSwitch {
-    0%, 25% { content: "UX Designer"; }
-    25%, 50% { content: "Front-End Developer"; }
-    50%, 75% { content: "Canva Expert"; }
-    75%, 100% { content: "Logo Designer"; }
+    transition: opacity 0.5s ease;
 }
 
 .section-title {
