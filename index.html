@@ -1,153 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samrat's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" type="x-icon" href="profile.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
 
-        <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- Navbar Start -->
+    <nav class="bg-white fixed w-full z-20 top-0 border-b border-gray-200 drop-shadow-xl">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="#" class="flex items-center space-x-3">
+            <span class="self-center text-3xl font-semibold whitespace-nowrap tracking-wider hover:text-rose-500">SAMRAT</span>
+        </a>
+        <div class="flex space-x-4 items-center text-xl">
+            <a href="https://www.linkedin.com/in/-samrat" target="_blank"><i class="fa-brands fa-linkedin hover:text-blue-600 hover:scale-125"></i></a>
+            <a href="https://github.com/samrat-smju" target="_blank"><i class="fa-brands fa-github hover:text-gray-800 hover:scale-125"></i></a>
+        </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
 
-        <!-- =====BOX ICONS===== -->
-        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-
-        <title>Samrat's Portfolio</title>
-    </head>
-    <body>
-        <!--===== HEADER =====-->
-        <header class="l-header">
-            <nav class="nav bd-grid">
-                <div>
-                    <a href="#" class="nav__logo">Samrat</a>
-                </div>
-
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
-                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-                        <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class='bx bx-menu'></i>
-                </div>
-            </nav>
-        </header>
-
-        <main class="l-main">
-            <!--===== HOME =====-->
-            <section class="home bd-grid" id="home">
-                <div class="home__data">
-                    <h1 class="home__title">Hi,<br>I'am <span class="home__title-color">Samrat</span><br> UX Designer & Developer</h1>
-
-                    <a href="#contact" class="button">Contact</a>
-                </div>
-
-                <div class="home__social">
-                    <a href="https://www.linkedin.com/in/-samrat" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
-                    <a href="#" class="home__social-icon"><i class='bx bxl-behance' ></i></a>
-                    <a href="#" class="home__social-icon"><i class='bx bxl-github' ></i></a>
-                </div>
-
-                <div class="home__img">
-                    <img src="assets/img/profile.jpg" alt="Samrat's Profile Picture">
-                </div>
-            </section>
-
-            <!--===== ABOUT =====-->
-            <section class="about section " id="about">
-                <h2 class="section-title">About</h2>
-
-                <div class="about__container bd-grid">
-                    <div class="about__img">
-                        <img src="assets/img/about.jpg" alt="">
-                    </div>
-                    
-                    <div>
-                        <h2 class="about__subtitle">I'am Samrat</h2>
-                        <p class="about__text">A passionate UX Designer and Developer with expertise in C++, Java, and front-end technologies. I create visually stunning and user-friendly designs to enhance user experiences.</p>           
-                    </div>                                   
-                </div>
-            </section>
-
-            <!--===== SKILLS =====-->
-            <section class="skills section" id="skills">
-                <h2 class="section-title">Skills</h2>
-
-                <div class="skills__container bd-grid">          
-                    <div>
-                        <h2 class="skills__subtitle">Professional Skills</h2>
-                        <p class="skills__text">I specialize in UI/UX design, front-end development, and programming in C++ and Java.</p>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-html5 skills__icon'></i>
-                                <span class="skills__name">HTML5</span>
-                            </div>
-                            <div class="skills__bar skills__html"></div>
-                            <div>
-                                <span class="skills__percentage">95%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-css3 skills__icon'></i>
-                                <span class="skills__name">CSS3</span>
-                            </div>
-                            <div class="skills__bar skills__css"></div>
-                            <div>
-                                <span class="skills__percentage">90%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-javascript skills__icon' ></i>
-                                <span class="skills__name">JavaScript</span>
-                            </div>
-                            <div class="skills__bar skills__js"></div>
-                            <div>
-                                <span class="skills__percentage">75%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxs-paint skills__icon'></i>
-                                <span class="skills__name">UX/UI</span>
-                            </div>
-                            <div class="skills__bar skills__ux"></div>
-                            <div>
-                                <span class="skills__percentage">95%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!--===== CONTACT =====-->
-            <section class="contact section" id="contact">
-                <h2 class="section-title">Contact</h2>
-                <div class="contact__container bd-grid">
-                    <p>Email: smju.samrat@gmail.com</p>
-                    <p>Phone: +8801881962323</p>
-                </div>
-            </section>
-        </main>
-
-        <!--===== FOOTER =====-->
-        <footer class="footer">
-            <p class="footer__title">Samrat</p>
-            <div class="footer__social">
-                <a href="#" class="footer__icon"><i class='bx bxl-facebook' ></i></a>
-                <a href="#" class="footer__icon"><i class='bx bxl-instagram' ></i></a>
-                <a href="#" class="footer__icon"><i class='bx bxl-twitter' ></i></a>
+    <!-- Home Section -->
+    <div class="h-full bg-[url('/Portfolio/cool-background.png')] bg-no-repeat bg-cover pt-16 pb-16 px-6 lg:px-28 flex justify-between" id="home">
+        <div>
+            <div class="mt-36">
+                <h2 class="text-gray-50 text-5xl font-light capitalize">Hi, I'm a UX Designer &</h2>
+                <h1 class="text-gray-100 text-6xl font-bold capitalize mt-6">Front-End Developer</h1>
+                <p class="text-gray-50 text-xl mt-4">Based in Dhaka, Bangladesh.</p>
             </div>
-            <p class="footer__copy">&#169; Samrat. All rights reserved</p>
-        </footer>
+            <div class="flex items-center mt-10">
+                <button class="bg-slate-900 text-gray-50 px-10 py-3 shadow-md">View My Works</button>
+                <button class="pl-10 underline hover:no-underline">Contact Me<i class="fa-solid fa-circle-arrow-down ml-2"></i></button>
+            </div>
+        </div>
+        <div class="mt-16">
+            <img src="profile.jpg" alt="Samrat" class="rounded-full bg-white p-4 shadow-lg">
+        </div>
+    </div>
 
-        <!--===== SCROLL REVEAL =====-->
-        <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- About Section -->
+    <div class="h-full pb-16 px-6 lg:px-28 pt-1.5" id="about">
+        <div class="flex items-center justify-center mt-20" data-aos="fade-up">
+            <p class="text-center bg-rose-500 px-3 py-.5">About Me</p>
+        </div>
+        <h1 class="text-center text-4xl mt-4 font-semibold" data-aos="fade-up">Know Me More</h1>
+        <div class="lg:flex justify-between mt-6">
+            <div data-aos="fade-up">
+                <h1 class="text-center text-3xl pb-3 mt-6 text-slate-900">Hi, I'm <b class="text-black">Sish Mohammad Jalal Uddin Samrat.</b></h1>
+                <p class="max-w-3xl text-xl text-center leading-9 font-light text-slate-900">
+                    I specialize in **UX design and front-end development**, with experience in **Figma, Webflow, Canva, HTML, CSS, Tailwind CSS, and JavaScript**. I create intuitive, visually stunning designs and seamless user experiences.
+                </p>
+            </div>
+            <div>
+                <div class="mt-8 flex justify-center">
+                    <div class="w-32 h-32 rounded-full bg-rose-500">
+                        <h1 class="text-center text-9xl text-slate-600">1+</h1>
+                    </div>
+                </div>
+                <p class="text-center text-xl">Years of <b>Experience</b></p>
+            </div>
+        </div>
 
-        <!--===== MAIN JS =====-->
-        <script src="assets/js/main.js"></script>
-    </body>
+        <div class="lg:flex justify-between mt-14">
+            <div data-aos="fade-up">
+                <p class="text-slate-900 mb-2">Name:</p>
+                <P class="font-bold">Sish Mohammad Jalal Uddin Samrat</P>
+            </div>
+            <div data-aos="fade-up">
+                <p class="text-slate-900 mb-2">E-mail:</p>
+                <p class="font-bold">smju.samrat@gmail.com</p>
+            </div>
+            <div data-aos="fade-up">
+                <p class="text-slate-900 mb-2">From:</p>
+                <p class="font-bold">Dhaka, Bangladesh</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="h-full bg-slate-100 px-6 lg:px-28 pt-1 pb-20" id="services">
+        <div class="flex items-center justify-center mt-20"><p class="text-center bg-rose-500 px-3 py-.5" data-aos="fade-up">What I Do?</p></div>
+        <h1 class="text-center text-4xl mt-4 font-semibold" data-aos="fade-up">How I can help your next project</h1>
+
+        <div class="lg:flex justify-between mt-16">
+            <div data-aos="fade-up">
+                <i class="fa-solid fa-palette text-5xl mb-4 text-rose-500"></i>
+                <h1 class="text-2xl font-medium text-center mb-2">UX & Graphic Design</h1>
+                <p class="text-base text-center max-w-80 font-normal text-slate-900">
+                    I create stunning, user-friendly designs using **Figma, Webflow, and Canva**.
+                </p>
+            </div>
+            <div data-aos="fade-up">
+                <i class="fa-solid fa-desktop text-5xl mb-4 text-rose-500"></i>
+                <h1 class="text-2xl font-medium text-center mb-2">Web Design</h1>
+                <p class="text-base text-center max-w-80 font-normal text-slate-900">
+                    I craft pixel-perfect, responsive websites with **HTML, CSS, Tailwind CSS, and JavaScript**.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
