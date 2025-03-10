@@ -5,18 +5,13 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-    text-align: center;
 }
 
 body {
     background-color: #ADD8E6; /* Light Blue */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
+/* Preloader */
 .preloader {
     position: fixed;
     top: 0;
@@ -25,37 +20,19 @@ body {
     height: 100%;
     background: white;
     z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.container {
-    animation: fadeIn 1s ease-in-out;
+.preloader::after {
+    content: "Loading...";
+    font-size: 1.5rem;
+    color: black;
 }
 
-.profile {
-    height: 15rem;
-    width: 15rem;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-@keyframes profilezoom {
-    from {
-        opacity: 0.5;
-        transform: scale(0.5);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
+/* Fade Animation */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
