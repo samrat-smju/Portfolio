@@ -4,107 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samrat's Portfolio</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons & Fonts -->
     <link rel="shortcut icon" type="x-icon" href="profile.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Navbar Start -->
-    <nav class="bg-white fixed w-full z-20 top-0 border-b border-gray-200 drop-shadow-xl">
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Navbar -->
+    <nav class="bg-white fixed w-full z-20 top-0 border-b border-gray-200 shadow-lg">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" class="flex items-center space-x-3">
-            <span class="self-center text-3xl font-semibold whitespace-nowrap tracking-wider hover:text-rose-500">SAMRAT</span>
-        </a>
-        <div class="flex space-x-4 items-center text-xl">
-            <a href="https://www.linkedin.com/in/-samrat" target="_blank"><i class="fa-brands fa-linkedin hover:text-blue-600 hover:scale-125"></i></a>
-            <a href="https://github.com/samrat-smju" target="_blank"><i class="fa-brands fa-github hover:text-gray-800 hover:scale-125"></i></a>
-        </div>
+            <a href="#" class="flex items-center space-x-3">
+                <span class="self-center text-3xl font-semibold tracking-wider hover:text-rose-500">SAMRAT</span>
+            </a>
+            <div class="flex space-x-4 items-center text-xl">
+                <a href="https://www.linkedin.com/in/-samrat" target="_blank">
+                    <i class="fa-brands fa-linkedin hover:text-blue-600 hover:scale-125"></i>
+                </a>
+                <a href="https://github.com/samrat-smju" target="_blank">
+                    <i class="fa-brands fa-github hover:text-gray-800 hover:scale-125"></i>
+                </a>
+            </div>
         </div>
     </nav>
-    <!-- Navbar End -->
 
     <!-- Home Section -->
-    <div class="h-full bg-[url('/Portfolio/cool-background.png')] bg-no-repeat bg-cover pt-16 pb-16 px-6 lg:px-28 flex justify-between" id="home">
+    <div class="h-screen bg-cover bg-no-repeat bg-center flex flex-col justify-center items-center text-center px-6" 
+         style="background-image: url('cool-background.png');">
         <div>
-            <div class="mt-36">
-                <h2 class="text-gray-50 text-5xl font-light capitalize">Hi, I'm a UX Designer &</h2>
-                <h1 class="text-gray-100 text-6xl font-bold capitalize mt-6">Front-End Developer</h1>
-                <p class="text-gray-50 text-xl mt-4">Based in Dhaka, Bangladesh.</p>
-            </div>
-            <div class="flex items-center mt-10">
-                <button class="bg-slate-900 text-gray-50 px-10 py-3 shadow-md">View My Works</button>
-                <button class="pl-10 underline hover:no-underline">Contact Me<i class="fa-solid fa-circle-arrow-down ml-2"></i></button>
-            </div>
+            <h2 class="text-gray-50 text-4xl md:text-5xl font-light capitalize">Hi, I'm a UX Designer &</h2>
+            <h1 class="text-gray-100 text-5xl md:text-6xl font-bold capitalize mt-6">Front-End Developer</h1>
+            <p class="text-gray-50 text-lg md:text-xl mt-4">Based in Dhaka, Bangladesh.</p>
         </div>
-        <div class="mt-16">
-            <img src="profile.jpg" alt="Samrat" class="rounded-full bg-white p-4 shadow-lg">
+        <div class="flex items-center mt-10 space-x-6">
+            <button class="bg-slate-900 text-gray-50 px-10 py-3 shadow-md rounded-md">View My Works</button>
+            <a href="#contact" class="underline hover:no-underline text-gray-200">Contact Me 
+                <i class="fa-solid fa-circle-arrow-down ml-2"></i>
+            </a>
+        </div>
+        <div class="mt-10">
+            <img src="profile.jpg" alt="Samrat" class="rounded-full bg-white p-4 shadow-lg w-40 md:w-48">
         </div>
     </div>
 
     <!-- About Section -->
-    <div class="h-full pb-16 px-6 lg:px-28 pt-1.5" id="about">
-        <div class="flex items-center justify-center mt-20" data-aos="fade-up">
-            <p class="text-center bg-rose-500 px-3 py-.5">About Me</p>
+    <div class="py-16 px-6 lg:px-28 bg-white" id="about">
+        <div class="text-center">
+            <p class="text-lg bg-rose-500 inline-block px-3 py-1 text-white rounded-md">About Me</p>
+            <h1 class="text-4xl mt-4 font-semibold">Know Me More</h1>
         </div>
-        <h1 class="text-center text-4xl mt-4 font-semibold" data-aos="fade-up">Know Me More</h1>
-        <div class="lg:flex justify-between mt-6">
-            <div data-aos="fade-up">
-                <h1 class="text-center text-3xl pb-3 mt-6 text-slate-900">Hi, I'm <b class="text-black">Sish Mohammad Jalal Uddin Samrat.</b></h1>
-                <p class="max-w-3xl text-xl text-center leading-9 font-light text-slate-900">
-                    I specialize in **UX design and front-end development**, with experience in **Figma, Webflow, Canva, HTML, CSS, Tailwind CSS, and JavaScript**. I create intuitive, visually stunning designs and seamless user experiences.
+
+        <div class="lg:flex justify-between mt-10">
+            <div class="text-center lg:text-left">
+                <h1 class="text-3xl text-slate-900">Hi, I'm <b class="text-black">Sish Mohammad Jalal Uddin Samrat</b></h1>
+                <p class="max-w-3xl text-lg leading-8 font-light text-gray-700 mt-4">
+                    I specialize in **UX design and front-end development**, with experience in **Figma, Webflow, Canva, HTML, CSS, Tailwind CSS, and JavaScript**.
                 </p>
             </div>
-            <div>
-                <div class="mt-8 flex justify-center">
-                    <div class="w-32 h-32 rounded-full bg-rose-500">
-                        <h1 class="text-center text-9xl text-slate-600">1+</h1>
-                    </div>
+            <div class="mt-8 flex justify-center">
+                <div class="w-24 h-24 rounded-full bg-rose-500 flex items-center justify-center text-white text-3xl font-bold">
+                    1+
                 </div>
-                <p class="text-center text-xl">Years of <b>Experience</b></p>
             </div>
         </div>
 
-        <div class="lg:flex justify-between mt-14">
-            <div data-aos="fade-up">
-                <p class="text-slate-900 mb-2">Name:</p>
-                <P class="font-bold">Sish Mohammad Jalal Uddin Samrat</P>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left mt-10">
+            <div>
+                <p class="text-gray-600">Name:</p>
+                <p class="font-bold">Sish Mohammad Jalal Uddin Samrat</p>
             </div>
-            <div data-aos="fade-up">
-                <p class="text-slate-900 mb-2">E-mail:</p>
+            <div>
+                <p class="text-gray-600">E-mail:</p>
                 <p class="font-bold">smju.samrat@gmail.com</p>
             </div>
-            <div data-aos="fade-up">
-                <p class="text-slate-900 mb-2">From:</p>
+            <div>
+                <p class="text-gray-600">From:</p>
                 <p class="font-bold">Dhaka, Bangladesh</p>
             </div>
         </div>
     </div>
 
-    <!-- Services Section -->
-    <div class="h-full bg-slate-100 px-6 lg:px-28 pt-1 pb-20" id="services">
-        <div class="flex items-center justify-center mt-20"><p class="text-center bg-rose-500 px-3 py-.5" data-aos="fade-up">What I Do?</p></div>
-        <h1 class="text-center text-4xl mt-4 font-semibold" data-aos="fade-up">How I can help your next project</h1>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6 text-center">
+        <p>&copy; 2025 Samrat | All Rights Reserved</p>
+    </footer>
 
-        <div class="lg:flex justify-between mt-16">
-            <div data-aos="fade-up">
-                <i class="fa-solid fa-palette text-5xl mb-4 text-rose-500"></i>
-                <h1 class="text-2xl font-medium text-center mb-2">UX & Graphic Design</h1>
-                <p class="text-base text-center max-w-80 font-normal text-slate-900">
-                    I create stunning, user-friendly designs using **Figma, Webflow, and Canva**.
-                </p>
-            </div>
-            <div data-aos="fade-up">
-                <i class="fa-solid fa-desktop text-5xl mb-4 text-rose-500"></i>
-                <h1 class="text-2xl font-medium text-center mb-2">Web Design</h1>
-                <p class="text-base text-center max-w-80 font-normal text-slate-900">
-                    I craft pixel-perfect, responsive websites with **HTML, CSS, Tailwind CSS, and JavaScript**.
-                </p>
-            </div>
-        </div>
-    </div>
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
 </body>
 </html>
