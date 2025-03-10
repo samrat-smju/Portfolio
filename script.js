@@ -1,4 +1,3 @@
-// Smooth scrolling for navbar links
 document.querySelectorAll('.navbar a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -9,4 +8,4 @@ document.querySelectorAll('.navbar a').forEach(anchor => {
     });
 });
 
-// Additional interactivity can go here if needed
+
