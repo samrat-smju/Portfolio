@@ -1,0 +1,77 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#about {
+    background-color: #007bff;
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.highlight {
+    font-weight: bold;
+    color: #ffc107;
+}
+
+section {
+    padding: 50px 0;
+}
+
+#education, #skills, #certifications, #projects {
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.education-item, .skill-item, .certification-item, .project-item {
+    margin-bottom: 20px;
+}
+
+.skills-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.skill-item {
+    width: 30%;
+}
+
+@media (max-width: 768px) {
+    .skills-list {
+        flex-direction: column;
+    }
+
+    .skill-item {
+        width: 100%;
+    }
+}
