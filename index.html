@@ -1,586 +1,714 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sish Mohammad Jalal Uddin Samrat - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        /* Custom animations and 3D effects */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
         }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
 
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
+        /* Animated background gradient */
+        .animated-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
 
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
+        /* 3D card effects */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .card-3d:hover {
+            transform: rotateY(5deg) rotateX(5deg) translateZ(20px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        /* Typing animation */
+        .typing-text {
+            border-right: 2px solid #fff;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #fff; }
+        }
+
+        /* Floating animation */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Skill bar animations */
+        .skill-bar {
+            width: 0%;
+            transition: width 2s ease-in-out;
+        }
+
+        .skill-bar.animate {
+            width: var(--skill-width);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+
+        /* Glowing effect */
+        .glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Particle background */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: particleFloat 20s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
             }
         }
-        return gk_fileData[filename] || "";
-        }
-        </script><!-- Portfolio Website for Sish Mohammad Jalal Uddin Samrat -->
-<!-- This is a single-page HTML file with Tailwind CSS and custom styles -->
-<!-- Edit text, links, and image paths as needed -->
-<!DOCTYPE html>
-<html lang="en" class="w-mod-js w-mod-touch">
-<head>
-  <!-- Meta tags for SEO and social sharing -->
-  <meta charset="utf-8">
-  <title>Sish Mohammad Jalal Uddin Samrat | Portfolio</title>
-  <meta name="description" content="Sish Mohammad Jalal Uddin Samrat, a Computer Science & Engineering student, UX designer, and developer creating minimalist designs and innovative web solutions.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Open Graph and Twitter Card meta tags for social media -->
-  <!-- EDIT: Update samrat-og-image.jpg with your own image (1200x630) -->
-  <meta property="og:title" content="Sish Mohammad Jalal Uddin Samrat | Portfolio">
-  <meta property="og:description" content="Sish Mohammad Jalal Uddin Samrat, a Computer Science & Engineering student, UX designer, and developer creating minimalist designs and innovative web solutions.">
-  <meta property="og:image" content="./images/samrat-og-image.jpg">
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="Sish Mohammad Jalal Uddin Samrat | Portfolio">
-  <meta property="twitter:description" content="Sish Mohammad Jalal Uddin Samrat, a Computer Science & Engineering student, UX designer, and developer creating minimalist designs and innovative web solutions.">
-  <meta property="twitter:image" content="./images/samrat-og-image.jpg">
-  <!-- External stylesheets: Tailwind CSS and custom styles -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
-  <link rel="stylesheet" href="./styles.css">
-  <!-- Favicon and Apple touch icon -->
-  <!-- EDIT: Replace samrat-favicon.jpg (32x32) and samrat-apple-touch-icon.jpg (180x180) -->
-  <link rel="shortcut icon" href="./images/samrat-favicon.jpg" type="image/x-icon">
-  <link rel="apple-touch-icon" href="./images/samrat-apple-touch-icon.jpg">
-  <!-- External scripts: WebFont and jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=66fb89bbe7ae3556ef443e4b" type="text/javascript"></script>
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
-  <!-- Navbar Section -->
-  <!-- Fixed navigation bar with mobile menu toggle -->
-  <div class="navbar w-nav bg-white shadow-md fixed w-full z-10" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease">
-    <div class="container mx-auto px-4 py-4">
-      <div class="flex justify-between items-center">
-        <!-- Logo: EDIT text or style as needed -->
-        <a href="/" class="navbar-brand w-nav-brand text-2xl font-bold text-gray-800">Samrat</a>
-        <!-- Navigation menu: EDIT links or add/remove items -->
-        <nav class="w-nav-menu md:flex space-x-6" role="navigation">
-          <ul role="list" class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
-            <li><a href="#home" class="text-gray-600 hover:text-gray-900">Home</a></li>
-            <li><a href="#about" class="text-gray-600 hover:text-gray-900">About</a></li>
-            <li><a href="#education" class="text-gray-600 hover:text-gray-900">Education</a></li>
-            <li><a href="#skills" class="text-gray-600 hover:text-gray-900">Skills</a></li>
-            <li><a href="#experience" class="text-gray-600 hover:text-gray-900">Experience</a></li>
-            <li><a href="#projects" class="text-gray-600 hover:text-gray-900">Projects</a></li>
-            <li><a href="#reviews" class="text-gray-600 hover:text-gray-900">Reviews</a></li>
-            <li><a href="#contact" class="text-gray-600 hover:text-gray-900">Contact</a></li>
-            <!-- Call-to-action button: EDIT text or styling -->
-            <li class="md:ml-4"><a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 inline-block">Hire Me!</a></li>
-          </ul>
-        </nav>
-        <!-- Mobile menu toggle: EDIT hamburger-icon.png (24x24) -->
-        <div class="w-nav-button md:hidden" onclick="toggleMenu()">
-          <img src="./images/hamburger-icon.png" alt="Hamburger Icon" class="w-6 h-6">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Hero Section -->
-  <!-- Full-screen section introducing you -->
-  <section id="home" class="min-h-screen flex items-center bg-gray-200">
-    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
-      <div class="md:w-1/2 fade-in" data-w-id="hero-left">
-        <!-- Greeting: EDIT text if needed -->
-        <div class="flex items-center">
-          <h3 class="text-lg text-gray-600">Hi,</h3>
-          <!-- EDIT: Replace hand-icon.png (20x20) -->
-          <img src="./images/hand-icon.png" alt="Hand Icon" class="w-5 h-5 mx-2">
-          <h3 class="text-lg text-gray-600">I'm Samrat</h3>
-        </div>
-        <!-- Name and title: EDIT your name or titles -->
-        <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mt-2">Sish Mohammad Jalal Uddin Samrat</h1>
-        <h2 class="text-2xl md:text-3xl text-blue-600 mt-2">CSE Student | Designer | Developer</h2>
-        <!-- Contact button: EDIT href or styling -->
-        <a href="#contact" class="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Contact Me</a>
-        <!-- Rating: EDIT star-icon.png (20x20) or text -->
-        <div class="mt-4 flex items-center">
-          <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-          <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-          <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-          <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-          <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-          <p class="ml-2 text-gray-600">Aspiring Innovator</p>
-        </div>
-      </div>
-      <!-- Hero image: EDIT samrat-hero.jpg (500x500 or larger) -->
-      <div class="md:w-1/2 mt-8 md:mt-0 fade-in" data-w-id="hero-right">
-        <img src="./images/samrat-hero.jpg" alt="Samrat Hero Image" class="w-full rounded-lg" sizes="(max-width: 479px) 100vw, (max-width: 767px) 98vw, (max-width: 991px) 500px, 36vw">
-      </div>
-    </div>
-  </section>
-
-  <!-- Marquee Section -->
-  <!-- Scrolling text showcasing your skills -->
-  <section class="bg-white py-4 overflow-hidden">
-    <div class="marquee flex whitespace-nowrap">
-      <!-- Marquee items: EDIT text or add more skills -->
-      <div class="flex space-x-4">
-        <h3 class="text-2xl font-bold text-gray-800">UX Design</h3>
-        <!-- EDIT: Replace black-star-icon.png (20x20) -->
-        <img src="./images/black-star-icon.png" alt="Black Star" class="w-5 h-5">
-        <h3 class="text-2xl font-bold text-gray-800">Minimalist Logo Design</h3>
-        <img src="./images/black-star-icon.png" alt="Black Star" class="w-5 h-5">
-        <h3 class="text-2xl font-bold text-gray-800">Web Development</h3>
-        <img src="./images/black-star-icon.png" alt="Black Star" class="w-5 h-5">
-      </div>
-      <!-- Duplicate for seamless scrolling -->
-      <div class="flex space-x-4">
-        <h3 class="text-2xl font-bold text-gray-800">UX Design</h3>
-        <img src="./images/black-star-icon.png" alt="Black Star" class="w-5 h-5">
-        <h3 class="text-2xl font-bold text-gray-800">Minimalist Logo Design</h3>
-        <img src="./images/black-star-icon.png" alt="Black Star" class="w-5 h-5">
-        <h3 class="text-2xl font-bold text-gray-800">Web Development</h3>
-        <img src="./images/black-star-icon.png" alt="Black Star" class="w-5 h-5">
-      </div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <!-- Describes you and includes a video lightbox -->
-  <section id="about" class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row items-center">
-        <div class="md:w-1/2 fade-in" data-w-id="about-left">
-          <!-- Section header: EDIT text or hand-icon.png (20x20) -->
-          <div class="flex items-center">
-            <img src="./images/hand-icon.png" alt="Hand Icon" class="w-5 h-5 mr-2">
-            <h3 class="text-lg text-gray-600">About Me</h3>
-          </div>
-          <!-- Title and bio: EDIT text to update your story -->
-          <h2 class="text-3xl font-bold text-gray-800 mt-2">Hi, I'm Samrat, a passionate CSE student and designer</h2>
-          <p class="mt-4 text-gray-600">I'm Sish Mohammad Jalal Uddin Samrat, a 4th-semester Computer Science & Engineering student at AIUB, Dhaka, Bangladesh. I specialize in UX design, minimalist logo creation, and web development. My goal is to craft innovative, user-friendly digital solutions while exploring technology and design. When I'm not coding or designing, I enjoy bodybuilding (currently 66kg, 5’9”, working on muscle gain) and watching anime like Naruto.</p>
-          <!-- Video lightbox: EDIT YouTube URL and thumbnail -->
-          <a href="#" class="w-lightbox mt-4 inline-block" data-w-id="video-lightbox">
-            <!-- EDIT: Replace play-icon.png (50x50) -->
-            <img src="./images/play-icon.png" alt="Play Video Icon" class="w-12 h-12">
-            <script type="application/json" class="w-json">
-              {
-                "items": [
-                  {
-                    "url": "https://youtube.com/watch?v=IcM8_Llgxf4",
-                    "originalUrl": "https://youtube.com/watch?v=IcM8_Llgxf4",
-                    "width": 940,
-                    "height": 528,
-                    "thumbnailUrl": "https://i.ytimg.com/vi/IcM8_Llgxf4/hqdefault.jpg",
-                    "html": "<iframe class=\"embedly-embed\" src=\"//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2FIcM8_Llgxf4%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIcM8_Llgxf4&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2FIcM8_Llgxf4%2Fhqdefault.jpg&key=96f1f04c5f4143bcb0f2e68c87d65feb&type=text%2Fhtml&schema=youtube\" width=\"940\" height=\"528\" scrolling=\"no\" title=\"YouTube embed\" frameborder=\"0\" allow=\"autoplay; fullscreen; encrypted-media; picture-in-picture;\" allowfullscreen=\"true\"></iframe>",
-                    "type": "video"
-                  }
-                ],
-                "group": ""
-              }
-            </script>
-          </a>
-        </div>
-        <!-- About image: EDIT samrat-about.jpg (500x500 or larger) -->
-        <div class="md:w-1/2 mt-8 md:mt-0 fade-in" data-w-id="about-right">
-          <img src="./images/samrat-about.jpg" alt="About Samrat Image" class="w-full rounded-lg" sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, (max-width: 991px) 97vw, 63vw">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Education Section -->
-  <!-- Lists your academic background -->
-  <section id="education" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <!-- Section header: EDIT text or hand-icon.png (20x20) -->
-      <div class="flex items-center fade-in" data-w-id="education-title">
-        <img src="./images/hand-icon.png" alt="Hand Icon" class="w-5 h-5 mr-2">
-        <h3 class="text-lg text-gray-600">Education</h3>
-      </div>
-      <!-- Title: EDIT text -->
-      <h2 class="text-3xl font-bold text-gray-800 mt-2">My Academic Journey</h2>
-      <!-- Education details: EDIT university, degree, or semester info -->
-      <div class="mt-8 fade-in" data-w-id="education-content">
-        <h4 class="text-xl font-semibold text-gray-800">American International University – Bangladesh (AIUB)</h4>
-        <p class="text-gray-600">B.Sc. in Computer Science & Engineering (CSE)</p>
-        <p class="text-gray-600">Current Semester: 4th (as of July 2025)</p>
-        <p class="text-gray-600">Semester Change Schedule: February, July, November</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-  <!-- Displays your technical skills -->
-  <section id="skills" class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-      <!-- Section header: EDIT text or hand-icon.png (20x20) -->
-      <div class="flex items-center fade-in" data-w-id="skills-title">
-        <img src="./images/hand-icon.png" alt="Hand Icon" class="w-5 h-5 mr-2">
-        <h3 class="text-lg text-gray-600">Skills</h3>
-      </div>
-      <!-- Title: EDIT text -->
-      <h2 class="text-3xl font-bold text-gray-800 mt-2">My Technical Expertise</h2>
-      <!-- Skills list: EDIT or add skills in each category -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <div class="fade-in" data-w-id="skills-design">
-          <h4 class="text-xl font-semibold text-gray-800">Design</h4>
-          <ul class="list-disc list-inside text-gray-600 mt-2">
-            <li>UX Design</li>
-            <li>Canva & Figma</li>
-            <li>Webflow</li>
-            <li>Social Media Management</li>
-            <li>Minimalist Logo Design</li>
-          </ul>
-        </div>
-        <div class="fade-in" data-w-id="skills-programming">
-          <h4 class="text-xl font-semibold text-gray-800">Programming</h4>
-          <ul class="list-disc list-inside text-gray-600 mt-2">
-            <li>C++ (Data Structures, OOP, Algorithms)</li>
-            <li>Java (OOP, Strings, Arrays, Inheritance)</li>
-            <li>Beginner Web Development</li>
-          </ul>
-        </div>
-        <div class="fade-in" data-w-id="skills-tools">
-          <h4 class="text-xl font-semibold text-gray-800">Tools</h4>
-          <ul class="list-disc list-inside text-gray-600 mt-2">
-            <li>MS Word, Excel, PowerPoint</li>
-            <li>GitHub</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience Section -->
-  <!-- Lists your professional experience -->
-  <section id="experience" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <!-- Section header: EDIT text or hand-icon.png (20x20) -->
-      <div class="flex items-center fade-in" data-w-id="experience-title">
-        <img src="./images/hand-icon.png" alt="Hand Icon" class="w-5 h-5 mr-2">
-        <h3 class="text-lg text-gray-600">Experience</h3>
-      </div>
-      <!-- Title: EDIT text -->
-      <h2 class="text-3xl font-bold text-gray-800 mt-2">My Professional Journey</h2>
-      <!-- Experience details: EDIT or add more entries -->
-      <div class="mt-8 space-y-6">
-        <div class="fade-in" data-w-id="experience-freelance">
-          <h4 class="text-xl font-semibold text-gray-800">Freelance Designer & Social Media Manager</h4>
-          <p class="text-gray-600">Created visually stunning minimalist logos and managed design projects using Canva and Figma. Designed engaging social media content and ad creatives for various clients.</p>
-        </div>
-        <div class="fade-in" data-w-id="experience-student">
-          <h4 class="text-xl font-semibold text-gray-800">Student Projects</h4>
-          <p class="text-gray-600">Developed a personal portfolio website with animations and backend integration (work in progress). Built an e-commerce store website with Bkash and Nagad payment integration, shopping cart, and contact form, hosted on GitHub.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <!-- Showcases your projects with images and links -->
-  <section id="projects" class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-      <!-- Section header: EDIT text or hand-icon.png (20x20) -->
-      <div class="flex items-center fade-in" data-w-id="projects-title">
-        <img src="./images/hand-icon.png" alt="Hand Icon" class="w-5 h-5 mr-2">
-        <h3 class="text-lg text-gray-600">Projects</h3>
-      </div>
-      <!-- Title: EDIT text -->
-      <h2 class="text-3xl font-bold text-gray-800 mt-2">My Recent Works</h2>
-      <!-- Projects grid: EDIT project details, images, or links -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 w-dyn-list">
-        <div class="project-card relative fade-in w-dyn-item" data-w-id="project-1">
-          <!-- EDIT: Update href and project-logo-designs.jpg (500x500 or larger) -->
-          <a href="https://samrat-smju.github.io" class="w-inline-block">
-            <img src="./images/project-logo-designs.jpg" alt="Minimalist Logo Designs" class="w-full rounded-lg" sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, 97vw">
-            <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
-              <!-- Arrow icon for project link -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 18 18">
-                <path d="M18 1.40625V16.5938C18 16.9667 17.8519 17.3244 17.5881 17.5881C17.3244 17.8518 16.9667 18 16.5938 18C16.2208 18 15.8631 17.8518 15.5994 17.5881C15.3357 17.3244 15.1875 16.9667 15.1875 16.5938V4.80122L2.40064 17.5881C2.13691 17.8519 1.77923 18 1.40626 18C1.0333 18 0.67561 17.8519 0.411884 17.5881C0.148159 17.3244 0 16.9667 0 16.5938C0 16.2208 0.148159 15.8631 0.411884 15.5994L13.1988 2.8125H1.40628C1.03332 2.8125 0.675633 2.66434 0.41191 2.40062C0.148187 2.1369 2.89513e-05 1.77921 2.89513e-05 1.40625C2.89513e-05 1.03329 0.148187 0.675604 0.41191 0.411881C0.675633 0.148158 1.03332 0 1.40628 0L16.5938 0C16.9667 0 17.3244 0.148158 17.5881 0.411881C17.8519 0.675604 18 1.03329 18 1.40625Z"></path>
-              </svg>
-            </div>
-          </a>
-          <h3 class="text-xl font-semibold text-gray-800 mt-2">Minimalist Logo Designs</h3>
-          <p class="text-gray-600">Collection of memorable brand logos designed for impact.</p>
-        </div>
-        <div class="project-card relative fade-in w-dyn-item" data-w-id="project-2">
-          <!-- EDIT: Update href and project-portfolio.jpg (500x500 or larger) -->
-          <a href="https://samrat-smju.github.io" class="w-inline-block">
-            <img src="./images/project-portfolio.jpg" alt="Portfolio Website" class="w-full rounded-lg" sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, 97vw">
-            <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 18 18">
-                <path d="M18 1.40625V16.5938C18 16.9667 17.8519 17.3244 17.5881 17.5881C17.3244 17.8518 16.9667 18 16.5938 18C16.2208 18 15.8631 17.8518 15.5994 17.5881C15.3357 17.3244 15.1875 16.9667 15.1875 16.5938V4.80122L2.40064 17.5881C2.13691 17.8519 1.77923 18 1.40626 18C1.0333 18 0.67561 17.8519 0.411884 17.5881C0.148159 17.3244 0 16.9667 0 16.5938C0 16.2208 0.148159 15.8631 0.411884 15.5994L13.1988 2.8125H1.40628C1.03332 2.8125 0.675633 2.66434 0.41191 2.40062C0.148187 2.1369 2.89513e-05 1.77921 2.89513e-05 1.40625C2.89513e-05 1.03329 0.148187 0.675604 0.41191 0.411881C0.675633 0.148158 1.03332 0 1.40628 0L16.5938 0C16.9667 0 17.3244 0.148158 17.5881 0.411881C17.8519 0.675604 18 1.03329 18 1.40625Z"></path>
-              </svg>
-            </div>
-          </a>
-          <h3 class="text-xl font-semibold text-gray-800 mt-2">Portfolio Website</h3>
-          <p class="text-gray-600">Personal website showcasing education, skills, and projects.</p>
-        </div>
-        <div class="project-card relative fade-in w-dyn-item" data-w-id="project-3">
-          <!-- EDIT: Update href and project-ecommerce.jpg (500x500 or larger) -->
-          <a href="https://samrat-smju.github.io" class="w-inline-block">
-            <img src="./images/project-ecommerce.jpg" alt="E-commerce Store Website" class="w-full rounded-lg" sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, 97vw">
-            <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 18 18">
-                <path d="M18 1.40625V16.5938C18 16.9667 17.8519 17.3244 17.5881 17.5881C17.3244 17.8518 16.9667 18 16.5938 18C16.2208 18 15.8631 17.8518 15.5994 17.5881C15.3357 17.3244 15.1875 16.9667 15.1875 16.5938V4.80122L2.40064 17.5881C2.13691 17.8519 1.77923 18 1.40626 18C1.0333 18 0.67561 17.8519 0.411884 17.5881C0.148159 17.3244 0 16.9667 0 16.5938C0 16.2208 0.148159 15.8631 0.411884 15.5994L13.1988 2.8125H1.40628C1.03332 2.8125 0.675633 2.66434 0.41191 2.40062C0.148187 2.1369 2.89513e-05 1.77921 2.89513e-05 1.40625C2.89513e-05 1.03329 0.148187 0.675604 0.41191 0.411881C0.675633 0.148158 1.03332 0 1.40628 0L16.5938 0C16.9667 0 17.3244 0.148158 17.5881 0.411881C17.8519 0.675604 18 1.03329 18 1.40625Z"></path>
-              </svg>
-            </div>
-          </a>
-          <h3 class="text-xl font-semibold text-gray-800 mt-2">E-commerce Store Website</h3>
-          <p class="text-gray-600">Online shop with 10+ products and payment methods (Bkash, Nagad).</p>
-        </div>
-        <div class="project-card relative fade-in w-dyn-item" data-w-id="project-4">
-          <!-- EDIT: Update href and project-coding.jpg (500x500 or larger) -->
-          <a href="https://samrat-smju.github.io" class="w-inline-block">
-            <img src="./images/project-coding.jpg" alt="C++ and Java Projects" class="w-full rounded-lg" sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, 97vw">
-            <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 18 18">
-                <path d="M18 1.40625V16.5938C18 16.9667 17.8519 17.3244 17.5881 17.5881C17.3244 17.8518 16.9667 18 16.5938 18C16.2208 18 15.8631 17.8518 15.5994 17.5881C15.3357 17.3244 15.1875 16.9667 15.1875 16.5938V4.80122L2.40064 17.5881C2.13691 17.8519 1.77923 18 1.40626 18C1.0333 18 0.67561 17.8519 0.411884 17.5881C0.148159 17.3244 0 16.9667 0 16.5938C0 16.2208 0.148159 15.8631 0.411884 15.5994L13.1988 2.8125H1.40628C1.03332 2.8125 0.675633 2.66434 0.41191 2.40062C0.148187 2.1369 2.89513e-05 1.77921 2.89513e-05 1.40625C2.89513e-05 1.03329 0.148187 0.675604 0.41191 0.411881C0.675633 0.148158 1.03332 0 1.40628 0L16.5938 0C16.9667 0 17.3244 0.148158 17.5881 0.411881C17.8519 0.675604 18 1.03329 18 1.40625Z"></path>
-              </svg>
-            </div>
-          </a>
-          <h3 class="text-xl font-semibold text-gray-800 mt-2">C++ & Java Projects</h3>
-          <p class="text-gray-600">Repositories with algorithms, arrays, OOP examples, and quizzes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Client Reviews Section -->
-  <!-- Slider with client testimonials -->
-  <section id="reviews" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <!-- Section header: EDIT text or hand-icon.png (20x20) -->
-      <div class="flex items-center fade-in" data-w-id="reviews-title">
-        <img src="./images/hand-icon.png" alt="Hand Icon" class="w-5 h-5 mr-2">
-        <h3 class="text-lg text-gray-600">Client Reviews</h3>
-      </div>
-      <!-- Title: EDIT text -->
-      <h2 class="text-3xl font-bold text-gray-800 mt-2">What People Say About My Work</h2>
-      <!-- Slider: EDIT reviews, images, or add more slides -->
-      <div class="w-slider mt-8" data-w-id="reviews-slider" data-autoplay="true" data-delay="4000">
-        <div class="w-slider-wrap">
-          <!-- Slide 1: EDIT text, joan-morgan-avatar.jpg (40x40), or star icons -->
-          <div class="w-slide fade-in">
-            <div class="bg-gray-100 p-6 rounded-lg">
-              <img src="./images/quote-icon.png" alt="Quote Icon" class="w-10 h-10 mb-4">
-              <p class="text-gray-600">Samrat's minimalist logo designs are both creative and impactful, perfectly capturing brand essence with simplicity.</p>
-              <div class="mt-4 flex items-center">
-                <img src="./images/joan-morgan-avatar.jpg" alt="Joan Morgan Avatar" class="w-10 h-10 rounded-full mr-2">
-                <div>
-                  <h4 class="text-lg font-semibold text-gray-800">Joan Morgan</h4>
-                  <p class="text-gray-600">UX Designer</p>
-                  <div class="flex mt-1">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/half-star-icon.png" alt="Half Star" class="w-5 h-5">
-                  </div>
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    Samrat
                 </div>
-              </div>
-            </div>
-          </div>
-          <!-- Slide 2: EDIT text, brian-milton-avatar.jpg (40x40), or star icons -->
-          <div class="w-slide fade-in">
-            <div class="bg-gray-100 p-6 rounded-lg">
-              <img src="./images/quote-icon.png" alt="Quote Icon" class="w-10 h-10 mb-4">
-              <p class="text-gray-600">Samrat's UX design skills brought our app concept to life with intuitive and engaging interfaces.</p>
-              <div class="mt-4 flex items-center">
-                <img src="./images/brian-milton-avatar.jpg" alt="Brian Milton Avatar" class="w-10 h-10 rounded-full mr-2">
-                <div>
-                  <h4 class="text-lg font-semibold text-gray-800">Brian Milton</h4>
-                  <p class="text-gray-600">UX Designer</p>
-                  <div class="flex mt-1">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/half-star-icon.png" alt="Half Star" class="w-5 h-5">
-                  </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-blue-400 transition-colors">Home</a>
+                    <a href="#about" class="hover:text-blue-400 transition-colors">About</a>
+                    <a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a>
+                    <a href="#certificates" class="hover:text-blue-400 transition-colors">Certificates</a>
+                    <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
                 </div>
-              </div>
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-          </div>
-          <!-- Slide 3: EDIT text, mia-anne-foster-avatar.jpg (40x40), or star icons -->
-          <div class="w-slide fade-in">
-            <div class="bg-gray-100 p-6 rounded-lg">
-              <img src="./images/quote-icon.png" alt="Quote Icon" class="w-10 h-10 mb-4">
-              <p class="text-gray-600">Samrat's e-commerce website was user-friendly and seamlessly integrated with Bkash and Nagad payments.</p>
-              <div class="mt-4 flex items-center">
-                <img src="./images/mia-anne-foster-avatar.jpg" alt="Mia Anne Foster Avatar" class="w-10 h-10 rounded-full mr-2">
-                <div>
-                  <h4 class="text-lg font-semibold text-gray-800">Mia Anne Foster</h4>
-                  <p class="text-gray-600">Founder & CEO</p>
-                  <div class="flex mt-1">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/half-star-icon.png" alt="Half Star" class="w-5 h-5">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Slide 4: EDIT text, jane-morgan-avatar.jpg (40x40), or star icons -->
-          <div class="w-slide fade-in">
-            <div class="bg-gray-100 p-6 rounded-lg">
-              <img src="./images/quote-icon.png" alt="Quote Icon" class="w-10 h-10 mb-4">
-              <p class="text-gray-600">Samrat's attention to detail in design and coding made our project stand out with clean, effective visuals.</p>
-              <div class="mt-4 flex items-center">
-                <img src="./images/jane-morgan-avatar.jpg" alt="Jane Morgan Avatar" class="w-10 h-10 rounded-full mr-2">
-                <div>
-                  <h4 class="text-lg font-semibold text-gray-800">Jane Morgan</h4>
-                  <p class="text-gray-600">UX Designer</p>
-                  <div class="flex mt-1">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/star-icon.png" alt="Star" class="w-5 h-5">
-                    <img src="./images/half-star-icon.png" alt="Half Star" class="w-5 h-5">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <!-- Slider arrows -->
-        <div class="w-slider-arrow w-slider-arrow-left absolute left-0 top-1/2 transform -translate-y-1/2">
-          <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-          </svg>
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-gray-800 px-4 py-2">
+            <a href="#home" class="block py-2 hover:text-blue-400">Home</a>
+            <a href="#about" class="block py-2 hover:text-blue-400">About</a>
+            <a href="#projects" class="block py-2 hover:text-blue-400">Projects</a>
+            <a href="#certificates" class="block py-2 hover:text-blue-400">Certificates</a>
+            <a href="#contact" class="block py-2 hover:text-blue-400">Contact</a>
         </div>
-        <div class="w-slider-arrow w-slider-arrow-right absolute right-0 top-1/2 transform -translate-y-1/2">
-          <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- Certifications Section -->
-  <!-- Lists your certifications -->
-  <section id="certifications" class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-      <!-- Section header: EDIT text or hand-icon.png (20x20) -->
-      <div class="flex items-center fade-in" data-w-id="certifications-title">
-        <img src="./images/hand-icon.png" alt="Hand Icon" class="w-5 h-5 mr-2">
-        <h3 class="text-lg text-gray-600">Certifications</h3>
-      </div>
-      <!-- Title: EDIT text -->
-      <h2 class="text-3xl font-bold text-gray-800 mt-2">My Achievements</h2>
-      <!-- Certifications: EDIT or add more entries -->
-      <div class="mt-8 space-y-6">
-        <div class="fade-in" data-w-id="certification-1">
-          <h4 class="text-xl font-semibold text-gray-800">Cisco Networking Academy – IT Essentials</h4>
-          <p class="text-gray-600">Completed on Sep 28, 2024, focusing on IT fundamentals and networking.</p>
-        </div>
-        <div class="fade-in" data-w-id="certification-2">
-          <h4 class="text-xl font-semibold text-gray-800">Adspire Certificate</h4>
-          <p class="text-gray-600">Awarded in 2025 for creating ads for a shoe company as part of a university project.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <!-- Provides contact information and social links -->
-  <section id="contact" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <!-- Section header: EDIT text or hand-icon.png (20x20) -->
-      <div class="flex items-center fade-in" data-w-id="contact-title">
-        <img src="./images/hand-icon.png" alt="Hand Icon" class="w-5 h-5 mr-2">
-        <h3 class="text-lg text-gray-600">Contact Me</h3>
-      </div>
-      <!-- Title: EDIT text -->
-      <h2 class="text-3xl font-bold text-gray-800 mt-2">Let's Work Together</h2>
-      <div class="mt-8 flex flex-col md:flex-row">
-        <div class="md:w-1/2 fade-in" data-w-id="contact-left">
-          <!-- Contact details: EDIT email, phone, or location -->
-          <p class="text-gray-600">Email: <a href="mailto:smju.samrat@gmail.com" class="text-blue-600">smju.samrat@gmail.com</a></p>
-          <p class="text-gray-600">Phone: <a href="tel:+8801881962323" class="text-blue-600">+8801881962323</a></p>
-          <p class="text-gray-600">Location: Dhaka, Bangladesh</p>
-          <!-- Social links: EDIT hrefs -->
-          <div class="mt-4 flex space-x-4">
-            <a href="https://linkedin.com/in/-samrat" target="_blank" class="text-gray-600 hover:text-blue-600">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 14 16" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3.125 15.0352H0.21875V5.69141H3.125V15.0352ZM1.65625 4.44141C0.75 4.44141 0 3.66016 0 2.72266C0 1.44141 1.375 0.628906 2.5 1.28516C3.03125 1.56641 3.34375 2.12891 3.34375 2.72266C3.34375 3.66016 2.59375 4.44141 1.65625 4.44141ZM13.9688 15.0352H11.0938V10.5039C11.0938 9.41016 11.0625 8.03516 9.5625 8.03516C8.0625 8.03516 7.84375 9.19141 7.84375 10.4102V15.0352H4.9375V5.69141H7.71875V6.97266H7.75C8.15625 6.25391 9.09375 5.47266 10.5 5.47266C13.4375 5.47266 14 7.41016 14 9.91016V15.0352H13.9688Z"></path>
-              </svg>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative animated-bg">
+        <!-- Particle background -->
+        <div class="particles" id="particles"></div>
+        
+        <div class="text-center z-10 px-4">
+            <!-- Profile Picture - CHANGE YOUR PHOTO HERE -->
+            <!-- Replace the SVG below with: <img src="YOUR_PHOTO_URL" alt="Samrat" class="w-40 h-40 rounded-full mx-auto mb-8 border-4 border-white/20 float glow"> -->
+            <div class="w-40 h-40 rounded-full mx-auto mb-8 border-4 border-white/20 float glow bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
+                <svg class="w-24 h-24 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">
+                Sish Mohammad <br>
+                <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    Jalal Uddin Samrat
+                </span>
+            </h1>
+            
+            <!-- Typing effect title -->
+            <div class="text-xl md:text-2xl mb-8 h-8">
+                <span id="typingText" class="typing-text"></span>
+            </div>
+            
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://samrat-smju.github.io" target="_blank" class="text-2xl hover:text-blue-400 transition-colors transform hover:scale-110">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/-samrat" target="_blank" class="text-2xl hover:text-blue-400 transition-colors transform hover:scale-110">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="tel:+8801881962323" class="text-2xl hover:text-blue-400 transition-colors transform hover:scale-110">
+                    <i class="fas fa-phone"></i>
+                </a>
+            </div>
+            
+            <a href="#about" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-3 rounded-full hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105 glow">
+                Explore My Work
             </a>
-            <a href="https://samrat-smju.github.io" target="_blank" class="text-gray-600 hover:text-blue-600">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-              </svg>
-            </a>
-          </div>
         </div>
-        <!-- Contact image: EDIT samrat-contact.jpg (500x500 or larger) -->
-        <div class="md:w-1/2 mt-8 md:mt-0 fade-in" data-w-id="contact-right">
-          <img src="./images/samrat-contact.jpg" alt="Contact Samrat Image" class="w-full rounded-lg" sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, 97vw">
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <!-- Contains navigation and copyright -->
-  <footer class="bg-gray-800 text-white py-8">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div>
-          <!-- Logo: EDIT text or styling -->
-          <a href="/" class="text-2xl font-bold">Samrat</a>
-          <!-- Footer links: EDIT or add more links -->
-          <ul role="list" class="mt-4 flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
-            <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
-            <li><a href="#about" class="text-gray-400 hover:text-white">About</a></li>
-            <li><a href="#education" class="text-gray-400 hover:text-white">Education</a></li>
-            <li><a href="#skills" class="text-gray-400 hover:text-white">Skills</a></li>
-            <li><a href="#experience" class="text-gray-400 hover:text-white">Experience</a></li>
-            <li><a href="#projects" class="text-gray-400 hover:text-white">Projects</a></li>
-            <li><a href="#reviews" class="text-gray-400 hover:text-white">Reviews</a></li>
-            <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
-          </ul>
-          <!-- Copyright: EDIT name or year -->
-          <p class="mt-2 text-gray-400">© 2025, All Rights Reserved by Sish Mohammad Jalal Uddin Samrat</p>
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                About Me
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="card-3d bg-gray-700/50 p-8 rounded-2xl backdrop-blur-sm">
+                    <h3 class="text-2xl font-semibold mb-4">Education & Background</h3>
+                    <p class="text-gray-300 mb-4">
+                        I'm currently pursuing my Bachelor's degree in Computer Science and Engineering at American International University-Bangladesh (AIUB), currently in my 5th semester. 
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        Passionate about technology, design, and innovation, I love creating digital solutions that make a difference. My journey combines technical expertise with creative design thinking.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold mb-2">🎓 Education</h4>
+                        <p class="text-gray-300">CSE 5th Semester, AIUB</p>
+                    </div>
+                </div>
+                
+                <!-- Skills Section - UPDATE YOUR SKILLS HERE -->
+                <div class="card-3d bg-gray-700/50 p-8 rounded-2xl backdrop-blur-sm">
+                    <h3 class="text-2xl font-semibold mb-6">Skills & Expertise</h3>
+                    
+                    <div class="space-y-4">
+                        <!-- Programming Languages -->
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>C++</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="bg-gray-600 rounded-full h-2">
+                                <div class="skill-bar bg-gradient-to-r from-blue-400 to-blue-600 h-2 rounded-full" style="--skill-width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Java</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="bg-gray-600 rounded-full h-2">
+                                <div class="skill-bar bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full" style="--skill-width: 80%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Design Skills -->
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>UX/UI Design</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="bg-gray-600 rounded-full h-2">
+                                <div class="skill-bar bg-gradient-to-r from-purple-400 to-purple-600 h-2 rounded-full" style="--skill-width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Web Design</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="bg-gray-600 rounded-full h-2">
+                                <div class="skill-bar bg-gradient-to-r from-pink-400 to-pink-600 h-2 rounded-full" style="--skill-width: 88%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tools -->
+                        <div class="pt-4">
+                            <h4 class="text-lg font-semibold mb-3">🛠️ Tools & Technologies</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm">Figma</span>
+                                <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">Canva</span>
+                                <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">Webflow</span>
+                                <span class="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-sm">MS Office</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- Social links: EDIT hrefs -->
-        <div class="mt-4 md:mt-0 flex space-x-4">
-          <a href="https://linkedin.com/in/-samrat" target="_blank" class="text-gray-400 hover:text-white">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 14 16" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3.125 15.0352H0.21875V5.69141H3.125V15.0352ZM1.65625 4.44141C0.75 4.44141 0 3.66016 0 2.72266C0 1.44141 1.375 0.628906 2.5 1.28516C3.03125 1.56641 3.34375 2.12891 3.34375 2.72266C3.34375 3.66016 2.59375 4.44141 1.65625 4.44141ZM13.9688 15.0352H11.0938V10.5039C11.0938 9.41016 11.0625 8.03516 9.5625 8.03516C8.0625 8.03516 7.84375 9.19141 7.84375 10.4102V15.0352H4.9375V5.69141H7.71875V6.97266H7.75C8.15625 6.25391 9.09375 5.47266 10.5 5.47266C13.4375 5.47266 14 7.41016 14 9.91016V15.0352H13.9688Z"></path>
-            </svg>
-          </a>
-          <a href="https://samrat-smju.github.io" target="_blank" class="text-gray-400 hover:text-white">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <!-- External JavaScript: EDIT to add or remove scripts -->
-  <script src="./scripts.js"></script>
-</body>
+    <!-- Projects Section - UPDATE YOUR PROJECTS HERE -->
+    <section id="projects" class="py-20 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                Featured Projects
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card-3d bg-gray-800/50 rounded-2xl overflow-hidden backdrop-blur-sm hover:bg-gray-800/70 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                        <i class="fas fa-bullhorn text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Adspire Ad Campaign</h3>
+                        <p class="text-gray-300 mb-4">
+                            Comprehensive advertising campaign design and strategy development for brand awareness and engagement.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-500/20 text-blue-300 px-2 py-1 rounded text-sm">Marketing</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-2 py-1 rounded text-sm">Design</span>
+                        </div>
+                        <button class="text-blue-400 hover:text-blue-300 transition-colors">
+                            View Details <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="card-3d bg-gray-800/50 rounded-2xl overflow-hidden backdrop-blur-sm hover:bg-gray-800/70 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
+                        <i class="fab fa-github text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">GitHub Portfolio Website</h3>
+                        <p class="text-gray-300 mb-4">
+                            Personal portfolio website showcasing projects, skills, and professional journey with modern design.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-green-500/20 text-green-300 px-2 py-1 rounded text-sm">Web Dev</span>
+                            <span class="bg-teal-500/20 text-teal-300 px-2 py-1 rounded text-sm">Portfolio</span>
+                        </div>
+                        <a href="https://samrat-smju.github.io" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">
+                            View Live <i class="fas fa-external-link-alt ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="card-3d bg-gray-800/50 rounded-2xl overflow-hidden backdrop-blur-sm hover:bg-gray-800/70 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+                        <i class="fas fa-microchip text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">AIoT Case Study – ThingsEngine</h3>
+                        <p class="text-gray-300 mb-4">
+                            Research and analysis of Artificial Intelligence of Things implementation using ThingsEngine platform.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-orange-500/20 text-orange-300 px-2 py-1 rounded text-sm">IoT</span>
+                            <span class="bg-red-500/20 text-red-300 px-2 py-1 rounded text-sm">AI</span>
+                        </div>
+                        <button class="text-blue-400 hover:text-blue-300 transition-colors">
+                            Read Study <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates & Volunteering Section -->
+    <section id="certificates" class="py-20 bg-gray-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                Certificates & Volunteering
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Certificates -->
+                <div class="card-3d bg-gray-700/50 p-8 rounded-2xl backdrop-blur-sm">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-certificate text-yellow-400 mr-3"></i>
+                        Certificates
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-blue-400 pl-4">
+                            <h4 class="text-lg font-semibold text-blue-300">Cisco IT Essentials Certificate</h4>
+                            <p class="text-gray-300">Comprehensive understanding of computer hardware, software, and networking fundamentals.</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-purple-400 pl-4">
+                            <h4 class="text-lg font-semibold text-purple-300">Adspire Certificate</h4>
+                            <p class="text-gray-300">Recognition for outstanding performance in advertising campaign development and digital marketing strategies.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Volunteering -->
+                <div class="card-3d bg-gray-700/50 p-8 rounded-2xl backdrop-blur-sm">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-hands-helping text-green-400 mr-3"></i>
+                        Volunteering
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-green-400 pl-4">
+                            <h4 class="text-lg font-semibold text-green-300">Event Planning Volunteer</h4>
+                            <p class="text-gray-300">Organized and coordinated various university and community events, managing logistics and team coordination.</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-pink-400 pl-4">
+                            <h4 class="text-lg font-semibold text-pink-300">Ad Campaign Volunteer</h4>
+                            <p class="text-gray-300">Contributed to social awareness campaigns and promotional activities for various causes and organizations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                Get In Touch
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="card-3d bg-gray-800/50 p-6 rounded-xl backdrop-blur-sm">
+                        <h3 class="text-xl font-semibold mb-4">Let's Connect!</h3>
+                        <p class="text-gray-300 mb-6">
+                            I'm always open to discussing new opportunities, collaborations, or just having a chat about technology and design.
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-blue-400 w-6"></i>
+                                <span class="ml-3">smju.samrat@gmail.com</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-green-400 w-6"></i>
+                                <span class="ml-3">+880 1881962323</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-red-400 w-6"></i>
+                                <span class="ml-3">Dhaka, Bangladesh</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form - MODIFY EMAIL SETTINGS HERE -->
+                <div class="card-3d bg-gray-800/50 p-8 rounded-xl backdrop-blur-sm">
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Name</label>
+                            <input type="text" name="name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" name="email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Subject</label>
+                            <input type="text" name="subject" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Message</label>
+                            <textarea name="message" rows="4" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 py-3 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105 glow">
+                            Send Message
+                        </button>
+                    </form>
+                    
+                    <!-- Form status message -->
+                    <div id="formStatus" class="mt-4 text-center hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-12 border-t border-gray-700">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center">
+                <div class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    Sish Mohammad Jalal Uddin Samrat
+                </div>
+                
+                <div class="flex justify-center space-x-6 mb-6">
+                    <a href="https://samrat-smju.github.io" target="_blank" class="text-2xl hover:text-blue-400 transition-colors transform hover:scale-110">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/-samrat" target="_blank" class="text-2xl hover:text-blue-400 transition-colors transform hover:scale-110">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="tel:+8801881962323" class="text-2xl hover:text-blue-400 transition-colors transform hover:scale-110">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+                
+                <p class="text-gray-400">
+                    © 2024 Sish Mohammad Jalal Uddin Samrat. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Typing effect for hero section - CUSTOMIZE TYPING TEXT HERE
+        const typingTexts = [
+            "Creative Coder",
+            "UX Designer", 
+            "Tech Enthusiast",
+            "Innovator"
+        ];
+        
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typingText');
+        
+        function typeText() {
+            const currentText = typingTexts[textIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 50 : 100;
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % typingTexts.length;
+                typeSpeed = 500;
+            }
+            
+            setTimeout(typeText, typeSpeed);
+        }
+        
+        // Start typing effect
+        typeText();
+        
+        // Animate skill bars when they come into view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-bar');
+                    skillBars.forEach(bar => {
+                        bar.classList.add('animate');
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        // Observe the skills section
+        const skillsSection = document.querySelector('#about');
+        if (skillsSection) {
+            skillObserver.observe(skillsSection);
+        }
+        
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles
+        createParticles();
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+        
+        // EmailJS Configuration - CONFIGURED FOR SAMRAT
+        // Get your keys from: https://www.emailjs.com/
+        const EMAILJS_SERVICE_ID = 'samrat';  // Your EmailJS service ID
+        const EMAILJS_TEMPLATE_ID = 'template_d5asxvu'; // Your EmailJS template ID
+        const EMAILJS_PUBLIC_KEY = 'OkZyPLTXLkhUh6eTL';   // Your EmailJS public key
+        
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+        
+        // Contact form handling with EmailJS
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formStatus = document.getElementById('formStatus');
+            const submitButton = this.querySelector('button[type="submit"]');
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+            formStatus.className = 'mt-4 text-center text-blue-400';
+            formStatus.textContent = 'Sending your message...';
+            formStatus.classList.remove('hidden');
+            
+            // Get form data
+            const formData = new FormData(this);
+            const templateParams = {
+                from_name: formData.get('name'),
+                from_email: formData.get('email'),
+                subject: formData.get('subject'),
+                message: formData.get('message'),
+                to_email: 'smju.samrat@gmail.com'
+            };
+            
+            // Send email using EmailJS
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                .then(function(response) {
+                    // Success
+                    formStatus.className = 'mt-4 text-center text-green-400';
+                    formStatus.textContent = '✅ Message sent successfully! I\'ll get back to you soon.';
+                    
+                    // Reset form
+                    document.getElementById('contactForm').reset();
+                    
+                    // Hide message after 5 seconds
+                    setTimeout(() => {
+                        formStatus.classList.add('hidden');
+                    }, 5000);
+                    
+                }, function(error) {
+                    // Error - fallback to mailto
+                    console.log('EmailJS failed:', error);
+                    
+                    // Create mailto link as fallback
+                    const mailtoLink = `mailto:smju.samrat@gmail.com?subject=${encodeURIComponent(templateParams.subject)}&body=${encodeURIComponent(`Name: ${templateParams.from_name}\nEmail: ${templateParams.from_email}\n\nMessage:\n${templateParams.message}`)}`;
+                    window.location.href = mailtoLink;
+                    
+                    formStatus.className = 'mt-4 text-center text-yellow-400';
+                    formStatus.textContent = '⚠️ Direct send failed. Opening your email client as backup.';
+                })
+                .finally(function() {
+                    // Reset button state
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Send Message';
+                });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobileMenu');
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-gray-900/95');
+            } else {
+                nav.classList.remove('bg-gray-900/95');
+            }
+        });
+        
+        // ANIMATION CUSTOMIZATION SECTION
+        // You can modify these values to customize animations:
+        
+        // 1. Change particle count (line 394): const particleCount = 50;
+        // 2. Modify typing speed (lines 360-361): typeSpeed values
+        // 3. Adjust card hover effects in CSS (lines 32-36)
+        // 4. Change gradient colors in CSS (line 18)
+        // 5. Modify skill bar animation duration (line 67)
+        
+        console.log('Portfolio loaded successfully! 🚀');
+        console.log('Customization guide:');
+        console.log('1. Profile picture: Replace SVG in hero section with <img> tag');
+        console.log('2. Skills: Update skill bars and percentages in About section');
+        console.log('3. Projects: Modify project cards in Projects section');
+        console.log('4. EmailJS Setup: Replace YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, YOUR_PUBLIC_KEY');
+        console.log('   - Go to https://www.emailjs.com/');
+        console.log('   - Create account and get your keys');
+        console.log('   - Set up email template with: from_name, from_email, subject, message, to_email');
+        console.log('5. Colors: Modify gradient colors in CSS');
+        console.log('6. Animations: Adjust timing and effects in JavaScript');
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'979fb87d40084ea3',t:'MTc1NzAxMjMzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
