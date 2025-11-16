@@ -125,6 +125,30 @@
                 opacity: 0;
             }
         }
+
+        /* ——— Intro Hero Video Styles (minimal additions) ——— */
+        .hero-video-wrap {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none; /* prevent interacting with the video */
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+            filter: brightness(0.45); /* darken for text readability */
+        }
+        /* ———————————————————————————————— */
+
     </style>
 </head>
 <body class="bg-gray-900 text-white overflow-x-hidden">
@@ -162,6 +186,14 @@
         <!-- Particle background -->
         <div class="particles" id="particles"></div>
         
+        <!-- Hero background video (autoplay, muted, loop) -->
+        <div class="hero-video-wrap">
+          <video class="hero-video" autoplay muted loop playsinline>
+            <source src="assets/videos/portfoliovideo.mp4" type="video/mp4">
+            <!-- fallback text -->
+          </video>
+        </div>
+
         <div class="text-center z-10 px-4">
             <!-- Profile Picture - CHANGE YOUR PHOTO HERE -->
             <!-- Replace the SVG below with: <img src="profile.jpg" alt="Samrat" class="w-40 h-40 rounded-full mx-auto mb-8 border-4 border-white/20 float glow"> -->
